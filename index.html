@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="point" style="display:none;"></div>
+
+    <div class="container">
+        <header>
+            <h1>Rock Paper Scissors</h1>
+        </header>
+
+        <div class="center">
+            <div class="computer-victories">
+            </div>
+            <div class="computer">
+                <img id="computer-img" src="assets/DEFAULTWHITE.png" alt="default">
+            </div>
+
+            <div class="result">
+                <span>Make a move!</span>
+            </div>
+
+            <div class="player">
+                <img id="player-img" src="assets/DEFAULT.png" alt="default">
+            </div>
+            <div class="player-victories">
+                
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button value="rock" class="selection">✊</button>
+            <button value="paper" class="selection">🤚</button>
+            <button value="scissors" class="selection" >✌</button>
+        </div>
+    </div>
+
+    <div id="alertModal">
+        <div id="modalBox">
+            <p>Game Over</p>
+            <button onclick="retry()">Retry</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

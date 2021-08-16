@@ -122,6 +122,8 @@ img {
 
 #alertModal {
     position: absolute;
+    top:0px;
+    left:0px;
     margin-left: 25%;
     margin-top: 50%;
     background-color: honeydew;
@@ -159,7 +161,4 @@ img {
         font-size: 10px;
         font-weight: 700;
     }
-}
-
-
 }

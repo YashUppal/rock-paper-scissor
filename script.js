@@ -184,13 +184,22 @@ const disableButtons = () => {
 
 const playRound = (playerMove, computerMove) => {
     // observerFunc()
-    computerMove = randomMove();
-   
     const playerSelection = playerMove.target.value.toUpperCase()
-    changeImage(playerSelection, computerMove);
+    computerMove = randomMove();
+
+    document.getElementById("player-img").classList.add("animate");
+    document.getElementById("computer-img").classList.add("animate");
+    setTimeout(() => {
+        document.getElementById("player-img").classList.remove("animate");
+        document.getElementById("computer-img").classList.remove("animate");
+
+        changeImage(playerSelection, computerMove);
+        compareMoves(playerSelection, computerMove);
+    },500)
 
 
-    compareMoves(playerSelection, computerMove);
+
+
 }
 
 

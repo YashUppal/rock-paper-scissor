@@ -16,7 +16,8 @@ body {
 header {
     width: 80%;
     /* color: rgb(250, 250, 175); */
-    color: rgb(107, 105, 105);
+    /* color: rgb(107, 105, 105); */
+    color: rgb(0, 0, 0);
     display:flex;
     justify-content: center;
 }
@@ -125,8 +126,15 @@ img {
     left:150px;
     background-color: honeydew;
     width: 200px;
-    height:150px;
+    height:200px;
     display:none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#modalBox {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;

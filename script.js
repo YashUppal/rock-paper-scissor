@@ -2,6 +2,8 @@
 // Generate computer random selection - random computer selection function
 // Compare computer with player - decide winner
 
+
+
 const MOVES_PRECEDENCE = {
     "ROCK": "PAPER", // Rock defeated by paper
     "PAPER": "SCISSORS", // Paper defeated by scissors
@@ -24,13 +26,66 @@ const POINT = {
     "computerWins": 0
 }
 
-const buttons = document.querySelectorAll('button');
+const playerImage = document.getElementById("player-img");
+
+const buttons = document.querySelectorAll('.selection');
+
+const observerFunc = () => {
+    const result = document.getElementsByClassName("result")[0];
+
+    const config = { childList: true };
+
+    const winner = () => {
+        for (const [key, value] of Object.entries(POINT)) {
+            if (value === 5) {
+                return key.substr(0,key.length-4).toUpperCase()
+            }
+        }
+    }
+
+    const callBack = function (mutationsList, observer) {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                console.log('A child node has been added or removed.');
+                if (POINT["playerWins"] === 5 || POINT["computerWins"] === 5) {
+                    setTimeout(
+                        () => { showModal(winner()) }, 100
+                    )
+                }
+            }
+        }
+    }
+
+    const observer = new MutationObserver(callBack);
+
+    observer.observe(result, config);
+
+    // observer.disconnect();
+}
+
+
 
 
 const randomMove = () => {
     const MOVES = ["ROCK", "PAPER", "SCISSORS"];
     return MOVES[Math.floor((Math.random() * (MOVES.length)))]
 }
+
+const reset = () => {
+    POINT["computerWins"] = 0;
+    POINT["playerWins"] = 0;
+    document.getElementById("player-img").src = "assets/DEFAULT.png"
+    document.getElementById("computer-img").src = "assets/DEFAULTWHITE.png"
+    document.getElementsByClassName('computer-victories')[0].innerText = '';
+    document.getElementsByClassName('player-victories')[0].innerText = '';
+}
+
+function retry() {
+    hideModal();
+    reset();
+}
+
+
 
 const changeImage = (player, comp) => {
     document.querySelector("#player-img").setAttribute("src", IMAGES[player])
@@ -42,7 +97,6 @@ const addPoint = (winner) => {
     const point = document.createElement('div');
     point.style.width = "20px";
     point.style.height = "10px";
-    console.log(point);
 
     if (winner === "player") {
         point.style.backgroundColor = "rgb(122, 206, 122)";
@@ -63,7 +117,6 @@ const changeResult = (result) => {
     
     const resultBoard = document.querySelector('.result');
 
-    console.log(resultBoard);
 
     if (result === "player") {
         resultBoard.className = 'result';
@@ -90,34 +143,18 @@ const changeResult = (result) => {
 
 const compareMoves = (playerSelection, computerMove) => {
 
-    
-
     if (MOVES_PRECEDENCE[playerSelection] === computerMove) {
-        console.log("Computer wins")
         changeResult("computer");
     } else if (playerSelection === computerMove) {
-        console.log("DRAW");
         changeResult("draw");
     } else {
-        console.log("Player wins")
         changeResult("player");
     }
 
-    if (POINT["playerWins"] === 5 || POINT["computerWins"] === 5) {
-        alert("asdf");
-    }
 }
 
-const retry = () => {
-    POINT["playerWins"] = 0;
-    POINT["computerWins"] = 0;
-    hideModal();
-    document.querySelector("#player-img").setAttribute("src", IMAGES["DEFAULT"])
-    document.querySelector("#computer-img").setAttribute("src", IMAGES["DEFAULTWHITE"])
-}
-
-
-const showModal = () => {
+const showModal = (winner) => {
+    document.getElementsByClassName("winner")[0].innerText = `${winner} won.`
     document.getElementById("alertModal").style.display = "flex";
     disableButtons();
 }
@@ -145,24 +182,24 @@ const disableButtons = () => {
     )
 }
 
-const playRound = (playerMove, computerMove = randomMove()) => {
-    // console.log(playerMove.target.value)
-    // console.log("Player: " + playerMove.target.value);
-    // console.log("Computer: " + computerMove);
-    // console.log(MOVES_PRECEDENCE[playerSelection] === computerMove)
-
+const playRound = (playerMove, computerMove) => {
+    // observerFunc()
+    computerMove = randomMove();
+   
     const playerSelection = playerMove.target.value.toUpperCase()
+    changeImage(playerSelection, computerMove);
 
-    // changeImage(playerSelection, computerMove);
+
     compareMoves(playerSelection, computerMove);
-
 }
 
 
 
 buttons.forEach(
     (button) => {
-        // console.log(button.value);
+        console.log(button.value);
         button.addEventListener('click', playRound)
     }
 )
+
+document.addEventListener('load', observerFunc())

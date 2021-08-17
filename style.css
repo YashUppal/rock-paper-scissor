@@ -122,10 +122,6 @@ img {
 
 #alertModal {
     position: absolute;
-    top:0px;
-    left:0px;
-    margin-left: 25%;
-    margin-top: 50%;
     background-color: honeydew;
     width: 200px;
     height:200px;
@@ -134,12 +130,26 @@ img {
     justify-content: center;
     align-items: center;
 }
-
+.modal-container {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100vw;
+    height:90vh;
+    background-color: transparent;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
 #modalBox {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.buttons {
+    padding-bottom: 6px;
 }
 
 .animate {
@@ -179,4 +189,5 @@ img {
         font-size: 10px;
         font-weight: 700;
     }
+
 }

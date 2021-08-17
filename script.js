@@ -156,11 +156,13 @@ const compareMoves = (playerSelection, computerMove) => {
 const showModal = (winner) => {
     document.getElementsByClassName("winner")[0].innerText = `${winner} won.`
     document.getElementById("alertModal").style.display = "flex";
+    document.getElementsByClassName("modal-container")[0].style.display = "flex";
     disableButtons();
 }
 
 const hideModal = () => {
     document.getElementById("alertModal").style.display = "none";
+    document.getElementsByClassName("modal-container")[0].style.display = "none";
     enableButtons();
 }
 
